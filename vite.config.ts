@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
 
   return {
-    base: '/ObligeWorks/', // ✅ GitHub 레포명 그대로
+    base: '/',
 
     server: {
       port: 3000,
