@@ -41,7 +41,7 @@ const AssetDrilldown: React.FC = () => {
             <ChevronLeft size={24} />
           </button>
           <div>
-            <h1 className="text-2xl font-black text-[#002366]">자산 카테고리 관제 포탈</h1>
+            <h1 className="text-2xl font-black text-[#002366]">자산 카테고리 관제 시스템</h1>
             <p className="text-slate-500 font-medium">로트 단위 자재 할당 및 잔량 현황 상세 분석</p>
           </div>
         </div>

@@ -23,7 +23,7 @@ const AdminDashboard: React.FC = () => {
       icon: BarChart3, 
       color: 'text-[#002366]', 
       bg: 'bg-blue-50',
-      path: '/' // 오더 통합 페이지 삭제로 인해 대시보드 유지
+      path: '/' 
     },
     { 
       label: '현재 제작 진행중', 
@@ -59,7 +59,7 @@ const AdminDashboard: React.FC = () => {
           <p className="text-slate-500 font-medium">오블리주 웍스 실시간 운영 관제 시스템입니다.</p>
         </div>
         <div className="bg-[#002366] text-white px-5 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-blue-900/10 flex items-center gap-2">
-          <ShieldCheck size={14} className="text-blue-300" /> Administrative Master
+          <ShieldCheck size={14} className="text-blue-300" /> Authorized Business Partner
         </div>
       </div>
 
@@ -123,7 +123,7 @@ const AdminDashboard: React.FC = () => {
           <div className="relative z-10">
             <div className="flex items-center justify-between mb-10">
               <h2 className="text-xl font-black flex items-center gap-3 text-blue-200">
-                <BellRing size={24} /> 주요 시스템 알림
+                <BellRing size={24} /> 기업용 알림 피드
               </h2>
               <span className="bg-rose-600 text-white text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-tighter animate-pulse">Critical</span>
             </div>

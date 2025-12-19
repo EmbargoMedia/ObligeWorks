@@ -39,20 +39,19 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
       return;
     }
     
-    // 기업 회원일 경우 상호명 저장
+    // 기업명 정보 저장
+    localStorage.setItem('user_company_name', formData.companyName);
     if (activeTab === UserRole.ADMIN) {
       localStorage.setItem('admin_company_name', formData.companyName);
     }
 
-    alert(`${activeTab === UserRole.ADMIN ? '기업 파트너' : '고객'} 회원가입이 완료되었습니다.`);
+    alert(`${activeTab === UserRole.ADMIN ? '기업 파트너' : '고객'} 회원가입 신청이 완료되었습니다.`);
     onSignUp(activeTab);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  const brandColor = "#002366";
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50 p-4 font-inter">
@@ -62,7 +61,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
             <Link to="/login" className="p-2 hover:bg-slate-50 rounded-full transition-colors mr-2">
               <ChevronLeft size={24} className="text-slate-400" />
             </Link>
-            <h1 className="text-2xl font-black text-slate-900 tracking-tighter">회원가입 요청</h1>
+            <h1 className="text-2xl font-black text-slate-900 tracking-tighter">시스템 이용 신청</h1>
           </div>
 
           <div className="flex bg-slate-100 p-1.5 rounded-2xl mb-10">
@@ -85,9 +84,42 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
+            {/* 상호명 및 사업자번호 (모든 회원 공통 노출) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 bg-slate-50 rounded-3xl border border-slate-100 mb-2">
+              <div className="md:col-span-1">
+                <label className="block text-[10px] font-black text-[#002366] uppercase tracking-widest ml-1 mb-1.5 italic">상호명 / 디자이너명 (필수)</label>
+                <div className="relative">
+                  <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
+                  <input 
+                    type="text" 
+                    name="companyName"
+                    value={formData.companyName}
+                    onChange={handleChange}
+                    placeholder="상호 또는 브랜드명"
+                    className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 bg-white focus:ring-2 focus:ring-[#002366]/20 focus:border-[#002366] outline-none transition-all font-bold text-sm"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="md:col-span-1">
+                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 mb-1.5">사업자 등록번호 (선택)</label>
+                <div className="relative">
+                  <FileText className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
+                  <input 
+                    type="text" 
+                    name="businessNumber"
+                    value={formData.businessNumber}
+                    onChange={handleChange}
+                    placeholder="000-00-00000"
+                    className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 bg-white focus:ring-2 focus:ring-[#002366]/20 focus:border-[#002366] outline-none transition-all font-bold text-sm"
+                  />
+                </div>
+              </div>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 mb-1.5">담당자 성함</label>
+                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 mb-1.5">가입자 성함</label>
                 <div className="relative">
                   <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
                   <input 
@@ -95,7 +127,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="홍길동"
+                    placeholder="성함 입력"
                     className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-[#002366]/20 focus:border-[#002366] outline-none transition-all font-bold text-sm"
                     required
                   />
@@ -103,7 +135,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
               </div>
               <div>
                 <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 mb-1.5">
-                  {activeTab === UserRole.ADMIN ? '소속 부서/직함' : '소속 (선택)'}
+                  직함 / 소속
                 </label>
                 <div className="relative">
                   <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
@@ -112,48 +144,12 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
                     name="position"
                     value={formData.position}
                     onChange={handleChange}
-                    placeholder={activeTab === UserRole.ADMIN ? "구매팀 과장" : "개인"}
+                    placeholder={activeTab === UserRole.ADMIN ? "과장 / 대표" : "디자이너 / 개인"}
                     className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-[#002366]/20 focus:border-[#002366] outline-none transition-all font-bold text-sm"
-                    required={activeTab === UserRole.ADMIN}
                   />
                 </div>
               </div>
             </div>
-
-            {activeTab === UserRole.ADMIN && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2">
-                <div className="md:col-span-1">
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 mb-1.5">상호명</label>
-                  <div className="relative">
-                    <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
-                    <input 
-                      type="text" 
-                      name="companyName"
-                      value={formData.companyName}
-                      onChange={handleChange}
-                      placeholder="오블리주웍스 아틀리에"
-                      className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-[#002366]/20 focus:border-[#002366] outline-none transition-all font-bold text-sm"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="md:col-span-1">
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 mb-1.5">사업자 등록번호</label>
-                  <div className="relative">
-                    <FileText className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
-                    <input 
-                      type="text" 
-                      name="businessNumber"
-                      value={formData.businessNumber}
-                      onChange={handleChange}
-                      placeholder="000-00-00000"
-                      className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-[#002366]/20 focus:border-[#002366] outline-none transition-all font-bold text-sm"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -228,7 +224,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
               className="w-full py-5 text-white rounded-2xl font-black shadow-xl shadow-blue-900/10 hover:bg-[#001A4D] active:scale-[0.98] transition-all mt-2 flex items-center justify-center gap-2 bg-[#002366]"
             >
               <ShieldCheck size={20} />
-              {activeTab === UserRole.ADMIN ? '기업 파트너 등록 신청' : '회원가입 완료'}
+              가입 승인 요청하기
             </button>
           </form>
 

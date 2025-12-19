@@ -323,7 +323,7 @@ const Header = ({ role, onLogout, onMenuClick }: { role: UserRole, onLogout: () 
           <div className="hidden lg:block text-left">
             <p className="text-sm font-black text-slate-900 leading-none">{currentUser.name}</p>
             <p className="text-[10px] font-black mt-1 text-[#002366] uppercase tracking-tighter">
-              {role === UserRole.ADMIN ? '시스템 마스터' : '프레스티지 멤버'}
+              {role === UserRole.ADMIN ? '기업 파트너' : '프레스티지 멤버'}
             </p>
           </div>
         </button>
@@ -344,7 +344,7 @@ const Sidebar = ({ role, onLogout, isMobile, onToggle }: { role: UserRole, onLog
     { label: 'A/S 및 요청', path: '/issues', icon: AlertCircle },
   ];
   const adminNav = [
-    { label: '마스터 대시보드', path: '/', icon: TrendingUp },
+    { label: '기업 관제 대시보드', path: '/', icon: TrendingUp },
     { label: '인벤토리 현황', path: '/admin/inventory', icon: Database },
     { label: 'A/S 티켓 센터', path: '/admin/issues', icon: MessageSquare },
   ];
@@ -353,11 +353,13 @@ const Sidebar = ({ role, onLogout, isMobile, onToggle }: { role: UserRole, onLog
   return (
     <aside className={`${isMobile ? 'w-full' : 'w-72 border-r hidden md:flex'} bg-white h-full flex flex-col p-6`}>
       <div className="mb-12 px-2">
-        <h1 className="text-2xl font-black text-[#002366] tracking-tighter">ObligeWorks</h1>
+        <Link to="/" className="inline-block outline-none" onClick={onToggle}>
+          <h1 className="text-2xl font-black text-[#002366] tracking-tighter hover:opacity-70 transition-opacity">ObligeWorks</h1>
+        </Link>
         {role === UserRole.ADMIN && companyName && (
           <p className="text-[11px] text-slate-500 font-bold mt-1 truncate">{companyName}</p>
         )}
-        <p className="text-[9px] text-slate-400 font-black uppercase tracking-[0.3em] mt-2">{role === UserRole.ADMIN ? 'ADMIN PORTAL' : 'CUSTOMER PORTAL'}</p>
+        <p className="text-[9px] text-slate-400 font-black uppercase tracking-[0.3em] mt-2">{role === UserRole.ADMIN ? 'BUSINESS SYSTEM' : 'CUSTOMER SYSTEM'}</p>
       </div>
       <nav className="flex-1 space-y-2 overflow-y-auto hide-scrollbar">
         {navItems.map((item) => (
@@ -365,12 +367,12 @@ const Sidebar = ({ role, onLogout, isMobile, onToggle }: { role: UserRole, onLog
             key={item.path}
             to={item.path}
             onClick={onToggle}
-            className={`flex items-center gap-4 px-5 py-4 rounded-[20px] transition-all font-bold text-sm ${
-              location.pathname === item.path ? 'bg-[#002366] text-white shadow-xl scale-105' : 'text-slate-600 hover:text-[#002366] hover:bg-slate-50'
+            className={`flex items-center gap-2.5 px-3 py-3 rounded-[16px] transition-all font-bold text-sm ${
+              location.pathname === item.path ? 'bg-[#002366] text-white shadow-lg' : 'text-slate-600 hover:text-[#002366] hover:bg-slate-50'
             }`}
           >
-            <item.icon size={22} />
-            {item.label}
+            <item.icon size={18} className="shrink-0" />
+            <span className="truncate">{item.label}</span>
           </Link>
         ))}
       </nav>
@@ -378,8 +380,8 @@ const Sidebar = ({ role, onLogout, isMobile, onToggle }: { role: UserRole, onLog
         <div className="px-6 mb-4">
           <span className="bg-slate-50 text-slate-300 px-2 py-0.5 rounded text-[9px] font-black tracking-tighter border border-slate-100 uppercase">System V.BETA.1.1</span>
         </div>
-        <button onClick={onLogout} className="w-full flex items-center gap-4 px-6 py-4 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-[20px] transition-all font-bold text-sm">
-          <LogOut size={20} /> 로그아웃
+        <button onClick={onLogout} className="w-full flex items-center gap-3 px-4 py-3.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-[16px] transition-all font-bold text-sm">
+          <LogOut size={18} /> <span className="truncate">로그아웃</span>
         </button>
       </div>
     </aside>

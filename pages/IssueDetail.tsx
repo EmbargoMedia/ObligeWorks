@@ -169,7 +169,7 @@ const IssueDetail: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto space-y-6 animate-in fade-in duration-500 pb-20">
       
-      {/* 관리자 전용 A/S 마스터 제어 포탈 */}
+      {/* 관리자 전용 A/S 마스터 제어 시스템 */}
       {isAdmin && (
         <div className="bg-[#002366] text-white p-8 rounded-[40px] shadow-2xl space-y-8 border border-white/10 relative overflow-hidden">
           <div className="flex items-center justify-between border-b border-white/10 pb-6 relative z-10">
@@ -178,7 +178,7 @@ const IssueDetail: React.FC = () => {
                 <Settings2 size={24} className="text-white" />
               </div>
               <div>
-                <span className="font-black text-lg uppercase tracking-tight">A/S 마스터 관제 포탈</span>
+                <span className="font-black text-lg uppercase tracking-tight">A/S 마스터 관제 시스템</span>
                 <p className="text-[10px] text-blue-200/60 font-bold mt-0.5 italic flex items-center gap-1.5 uppercase tracking-widest">
                   <ShieldCheck size={12} className="text-blue-300" /> REPAIR CONTROL V.BETA.1.0
                 </p>

@@ -12,7 +12,7 @@ export const MOCK_USER = {
 
 export const MOCK_ADMIN = {
   id: 'admin1',
-  name: '관리자(장윤진)',
+  name: '마스터(장윤진)',
   email: 'admin@obligeworks.com',
   role: UserRole.ADMIN
 };
@@ -24,12 +24,14 @@ export const MOCK_ORDERS: Order[] = [
     customerName: '홍길동',
     workshopName: '오블리주 아틀리에 청담',
     itemName: '18K 다이아몬드 솔리테어 링',
-    status: OrderStatus.PRODUCTION,
+    status: OrderStatus.PAYMENT_WAITING, // 테스트를 위해 결제 대기 상태로 설정
     ecd: '2024-05-20',
     lastUpdate: '2024-05-15 14:30',
+    // Added priority to fix error in mockData.ts
+    priority: 'NORMAL',
     quantity: 1,
     options: '사이즈: 12호, 각인: "G.D & M.J"',
-    paymentStatus: '결제완료',
+    paymentStatus: '결제대기',
     isDesignVerified: true,
     isExpress: false,
     materials: [
@@ -37,28 +39,21 @@ export const MOCK_ORDERS: Order[] = [
       { id: 'm2', type: '원석', spec: '0.5ct 다이아몬드 (GIA)', status: MaterialStatus.SECURED, source: 'WORKSHOP', linkedLotNumber: 'D-NAT-2044' }
     ],
     timeline: [
-      { name: '디자인 확정', status: ProcessStatus.COMPLETED, updatedAt: '2024-05-10', comment: '최종 시안 승인됨' },
-      { name: '자재확보', status: ProcessStatus.COMPLETED, updatedAt: '2024-05-12', comment: '로트 할당 완료' },
-      { name: '제작중', status: ProcessStatus.IN_PROGRESS, updatedAt: '2024-05-15', comment: '난집 제작중 (자재 실차감 완료)', photos: ['https://picsum.photos/400/300?random=1'] },
-      { name: '세팅/마감', status: ProcessStatus.WAITING, updatedAt: '-' },
+      { name: '의뢰 접수', status: ProcessStatus.COMPLETED, updatedAt: '2024-05-10', comment: '주문 의뢰가 정상 접수되었습니다.' },
+      { name: '디자인/재고 확인', status: ProcessStatus.COMPLETED, updatedAt: '2024-05-12', comment: '디자인 검토 완료 및 18K 화이트골드 로트 할당 완료' },
+      { name: '제작중', status: ProcessStatus.WAITING, updatedAt: '-', comment: '결제 확인 후 공정이 시작됩니다.' },
       { name: '검수', status: ProcessStatus.WAITING, updatedAt: '-' },
-      { name: '포장', status: ProcessStatus.WAITING, updatedAt: '-' },
       { name: '출고', status: ProcessStatus.WAITING, updatedAt: '-' }
     ],
-    attachments: ['https://picsum.photos/600/400?random=11']
+    attachments: ['https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&q=80&w=600']
   }
 ];
 
 export const MOCK_INVENTORY: InventoryItem[] = [
-  // BRAND Owned (본사 자산)
   { id: 'inv-1', category: 'METAL', subCategory: '18K', name: '18K Yellow Gold Grain', stock: 850.5, reservedStock: 120.0, unit: 'g', threshold: 500, status: 'SAFE', ownership: 'BRAND', lotNumber: 'L2406-YG-01', arrivalDate: '2024-06-01', unitPrice: 98000 },
   { id: 'inv-2', category: 'METAL', subCategory: '18K', name: '18K White Gold Grain', stock: 320.0, reservedStock: 250.0, unit: 'g', threshold: 400, status: 'LOW', ownership: 'BRAND', lotNumber: 'L2405-WG-03', arrivalDate: '2024-05-15', unitPrice: 102000 },
   { id: 'inv-3', category: 'STONE', subCategory: 'Natural', name: '0.5ct Diamond Round GIA F/VS2', stock: 12, reservedStock: 5, unit: 'pcs', threshold: 5, status: 'SAFE', ownership: 'BRAND', lotNumber: 'D-NAT-2044', arrivalDate: '2024-04-10', unitPrice: 2450000 },
-  
-  // WORKSHOP Owned (공방 위탁)
   { id: 'inv-4', category: 'METAL', subCategory: '14K', name: '14K Rose Gold Wire', stock: 1200.0, reservedStock: 0, unit: 'g', threshold: 300, status: 'SAFE', ownership: 'WORKSHOP', lotNumber: 'W-L2406-RG', arrivalDate: '2024-06-05', unitPrice: 78000 },
-  
-  // CLIENT Provided (고객 지참)
   { id: 'inv-5', category: 'METAL', subCategory: '18K', name: 'Client: HKD Old Gold (18K)', stock: 15.2, reservedStock: 15.2, unit: 'g', threshold: 0, status: 'SAFE', ownership: 'CLIENT', lotNumber: 'CL-HKD-001', arrivalDate: '2024-06-10', unitPrice: 0 },
   { id: 'inv-6', category: 'STONE', subCategory: 'Natural', name: 'Client: Heirloom Diamond 1.0ct', stock: 1, reservedStock: 1, unit: 'pcs', threshold: 0, status: 'SAFE', ownership: 'CLIENT', lotNumber: 'CL-HKD-D01', arrivalDate: '2024-06-10', unitPrice: 0 },
 ];
@@ -73,7 +68,7 @@ export const MOCK_ISSUES: IssueTicket[] = [
     status: IssueStatus.SOLUTION_PROPOSED,
     createdAt: '2024-05-16',
     description: '착용 중 메인 스톤이 미세하게 흔들리는 느낌이 있습니다. 또한 전체적인 광택 복원도 함께 진행하고 싶습니다.',
-    photos: ['https://picsum.photos/400/300?random=20'],
+    photos: ['https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&q=80&w=600'],
     serviceCategory: 'SETTING_CHECK',
     serviceType: 'FREE',
     responsibleWorkshop: '오블리주 아틀리에 청담',

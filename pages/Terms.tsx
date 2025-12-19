@@ -28,13 +28,13 @@ const Terms: React.FC = () => {
           <div className="prose prose-slate max-w-none space-y-8 text-slate-600 leading-relaxed">
             <section>
               <h2 className="text-lg font-bold text-slate-900 mb-4 border-l-4 border-indigo-600 pl-4">제1조 (목적)</h2>
-              <p>본 약관은 오블리주 웍스(이하 "회사")가 제공하는 주얼리 주문 관리 포탈 서비스(이하 "서비스")의 이용 조건 및 절차, 이용자와 회사의 권리, 의무 및 책임 사항을 규정함을 목적으로 합니다.</p>
+              <p>본 약관은 오블리주 웍스(이하 "회사")가 제공하는 주얼리 주문 관리 시스템 서비스(이하 "서비스")의 이용 조건 및 절차, 이용자와 회사의 권리, 의무 및 책임 사항을 규정함을 목적으로 합니다.</p>
             </section>
 
             <section>
               <h2 className="text-lg font-bold text-slate-900 mb-4 border-l-4 border-indigo-600 pl-4">제2조 (용어의 정의)</h2>
               <ul className="list-disc pl-5 space-y-2">
-                <li>"포탈"이란 회사가 이용자에게 주얼리 제작 공정 확인 및 커뮤니케이션 기능을 제공하기 위해 운영하는 웹 사이트를 말합니다.</li>
+                <li>"시스템"이란 회사가 이용자에게 주얼리 제작 공정 확인 및 커뮤니케이션 기능을 제공하기 위해 운영하는 웹 사이트를 말합니다.</li>
                 <li>"이용자"란 본 약관에 동의하고 서비스를 이용하는 고객을 말합니다.</li>
                 <li>"주문 제작"이란 이용자의 개별 요청에 따라 맞춤형으로 주얼리를 제작하는 과정을 말합니다.</li>
               </ul>
@@ -43,7 +43,7 @@ const Terms: React.FC = () => {
             <section>
               <section className="mb-6">
                 <h2 className="text-lg font-bold text-slate-900 mb-4 border-l-4 border-indigo-600 pl-4">제3조 (주문 및 결제)</h2>
-                <p>1. 모든 주문은 포탈 또는 오프라인 상담을 통해 확정되며, 이용자는 제공된 공정 확인 기능을 통해 진행 상황을 모니터링할 수 있습니다.</p>
+                <p>1. 모든 주문은 시스템 또는 오프라인 상담을 통해 확정되며, 이용자는 제공된 공정 확인 기능을 통해 진행 상황을 모니터링할 수 있습니다.</p>
                 <p>2. 주문 제작의 특성상 결제가 완료된 시점부터 자재 확보 및 제작이 시작됩니다.</p>
               </section>
 

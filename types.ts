@@ -39,16 +39,7 @@ export enum IssueStatus {
 
 export type ASServiceCategory = 'POLISHING' | 'SETTING_CHECK' | 'REMAKE' | 'RESIZING' | 'CLEANING' | 'OTHER';
 export type ASServiceType = 'FREE' | 'PAID' | 'POLICY_EXCEPTION';
-
-// 1. 재고 소유권 구분
 export type OwnershipType = 'BRAND' | 'WORKSHOP' | 'CLIENT';
-
-// 2. 자재 할당 상태
-export type AllocationStatus = 'AVAILABLE' | 'RESERVED' | 'CONSUMED' | 'RETURNED';
-
-// 3. 재고 조정 사유
-export type AdjustmentReason = 'LOSS' | 'DAMAGE' | 'ERROR' | 'REMAKE' | 'SAMPLE' | 'INITIAL_STOCK';
-
 export type MaterialSource = 'WORKSHOP' | 'CLIENT';
 
 export interface Material {
@@ -60,20 +51,14 @@ export interface Material {
   amount?: string;
   stoneCount?: string;
   cutType?: string;
+  totalWeight?: string;
+  settingType?: string;
+  position?: string;
   certAuthority?: string;
   certNumber?: string;
-  certYear?: string;
+  certTarget?: 'MAIN' | 'SIDE' | 'ALL';
   certFiles?: string[];
-  linkedLotNumber?: string; // 로트 번호 연결
-}
-
-export interface ProcessStep {
-  name: string;
-  status: ProcessStatus;
-  updatedAt: string;
-  comment?: string;
-  photos?: string[];
-  requiresApproval?: boolean;
+  linkedLotNumber?: string;
 }
 
 export interface Order {
@@ -81,20 +66,40 @@ export interface Order {
   orderNumber: string;
   customerName: string;
   workshopName: string;
+  projectTitle?: string;
   itemName: string;
   status: OrderStatus;
   ecd: string;
   lastUpdate: string;
+  priority: 'NORMAL' | 'URGENT' | 'SAMPLE';
+  designRefType?: 'CAD' | 'SKETCH' | 'PHOTO' | 'SAMPLE';
+  metalColor?: string;
+  targetWeight?: string;
+  weightTolerance?: string;
+  sizeLength?: string;
+  wearingDirection?: 'LEFT' | 'RIGHT' | 'SYM';
+  surfaceFinish?: string[];
+  qcChecklist?: string[];
   quantity: number;
   options: string;
   paymentStatus: string;
   materials: Material[];
-  timeline: ProcessStep[];
+  timeline: any[];
   attachments: string[];
   estimatedBudget?: string;
   finalQuote?: number;
   isDesignVerified: boolean;
   isExpress: boolean;
+  // v1.1 추가: 상세 지시서 데이터
+  specs?: {
+    metal: any;
+    mainStone: any;
+    sideStone: any;
+    manu: any;
+    settlement: any;
+    qc: any;
+    specialNote: string;
+  }
 }
 
 export interface InventoryItem {
@@ -102,26 +107,15 @@ export interface InventoryItem {
   category: 'METAL' | 'STONE' | 'OTHER';
   subCategory: string; 
   name: string;
-  stock: number; // 실재고 (가용 + 예약)
-  reservedStock: number; // 오더에 할당된 수량
+  stock: number;
+  reservedStock: number;
   unit: string;
   threshold: number; 
   status: 'SAFE' | 'LOW' | 'OUT';
-  ownership: OwnershipType; // 소유권 구분
-  lotNumber: string; // 로트 번호
-  arrivalDate: string; // 입고일
-  unitPrice: number; // 입고 단가 (자산가치 계산용)
-}
-
-export interface InventoryAuditLog {
-  id: string;
-  itemId: string;
-  changeAmount: number;
-  afterStock: number;
-  reason: AdjustmentReason;
-  orderId?: string;
-  timestamp: string;
-  operatorName: string;
+  ownership: OwnershipType;
+  lotNumber: string;
+  arrivalDate: string;
+  unitPrice: number;
 }
 
 export interface IssueTicket {
@@ -134,19 +128,31 @@ export interface IssueTicket {
   createdAt: string;
   description: string;
   photos: string[];
-  solution?: string;
-  serviceCategory?: ASServiceCategory;
-  serviceType?: ASServiceType;
+  serviceCategory: ASServiceCategory;
+  serviceType: ASServiceType;
   responsibleWorkshop?: string;
   estimatedDuration?: string;
-  technicalLogs?: { time: string; action: string; note: string }[];
+  technicalLogs?: { time: string; action: string; note: string; }[];
 }
 
-export interface User {
+export interface OrderAdjustment {
   id: string;
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  role: UserRole;
+  orderId: string;
+  type: string;
+  amount: number;
+  reason: string;
+  timestamp: string;
+}
+
+export type AdjustmentReason = 'ERROR' | 'LOSS' | 'DAMAGE' | 'REMAKE' | 'SAMPLE' | 'INITIAL_STOCK';
+
+export interface InventoryAuditLog {
+  id: string;
+  itemId: string;
+  changeAmount: number;
+  afterStock: number;
+  reason: string;
+  orderId?: string;
+  timestamp: string;
+  operatorName: string;
 }

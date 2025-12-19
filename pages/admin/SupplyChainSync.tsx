@@ -23,7 +23,7 @@ const SupplyChainSync: React.FC = () => {
             <ChevronLeft size={24} />
           </button>
           <div>
-            <h1 className="text-2xl font-black text-[#002366]">실시간 공급망 동기화 포탈</h1>
+            <h1 className="text-2xl font-black text-[#002366]">실시간 공급망 동기화 시스템</h1>
             <p className="text-slate-500 font-medium">파트너 공방 및 해외 자재 수급망과의 데이터 통신 현황입니다.</p>
           </div>
         </div>

@@ -51,14 +51,14 @@ const ForgotPassword: React.FC = () => {
                 <div className="w-16 h-16 bg-slate-50 text-[#002366] rounded-3xl flex items-center justify-center mx-auto mb-4 border border-slate-100">
                   <Mail size={32} />
                 </div>
-                <p className="text-slate-500 font-bold text-sm">가입하신 이메일 또는 휴대폰 번호를 입력하시면 인증번호를 보내드립니다.</p>
+                <p className="text-slate-500 font-bold text-sm">가입하신 이메일 주소를 입력하시면 인증번호를 보내드립니다.</p>
               </div>
 
               <form onSubmit={handleSendCode} className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">이메일 또는 휴대폰 번호</label>
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">이메일 주소</label>
                   <input 
-                    type="text" 
+                    type="email" 
                     value={identifier}
                     onChange={(e) => setIdentifier(e.target.value)}
                     placeholder="example@email.com"
